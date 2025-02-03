@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="basic.css">
+</head>
+<body class="light-mode">
+    <div class="container">
+        <div class="head">
+            <button type="button" class="history-button">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </button>
+            <button id="toggle-theme">Theme</button>
+        </div>
+        <!-- <div class="display"> -->
+        <input type="text" placeholder="0" class="display" >
+        <!-- </div> -->
+        <div class="btns">
+            <div class="row">
+                <button class="btn">Sin</button>
+                <button class="btn">Cos</button>
+                <button class="btn">Tan</button>
+                <button class="btn">C</button>
+                <button class="btn">⌫</button>
+            </div>
+            <div class="row">
+                <button class="btn">x<sup>2</sup></button>
+                <button class="btn">π</button>
+                <button class="btn">e</button>
+                <button class="btn">exp</button>
+                <button class="btn">mod</button>
+            </div>
+            <div class="row">
+                <button class="btn">√x</button>
+                <button class="btn">(</button>
+                <button class="btn">)</button>
+                <button class="btn factorial">n!</button>
+                <button class="btn">÷</button>
+            </div>
+            <div class="row">
+                <button class="btn">x<sup>y</sup></button>
+                <button class="btn num">7</button>
+                <button class="btn num">8</button>
+                <button class="btn num">9</button>
+                <button class="btn">x</button>
+            </div>
+            <div class="row">
+                <button class="btn">10<sup>x</sup></button>
+                <button class="btn num">4</button>
+                <button class="btn num">5</button>
+                <button class="btn num">6</button>
+                <button class="btn">-</button>
+            </div>
+            <div class="row">
+                <button class="btn">log</button>
+                <button class="btn num">1</button>
+                <button class="btn num">2</button>
+                <button class="btn num">3</button>
+                <button class="btn">+</button>
+            </div>
+            <div class="row">
+                <button class="btn">ln</button>
+                <button class="btn num"><sup>+</sup>/<sub>-</sub></button>
+                <button class="btn num">0</button>
+                <button class="btn num"><sub>.</sub></button>
+                <button class="btn equal">=</button>
+            </div>
+        </div>
+    </div>
+    <div class="history-panel">
+        <div class="history-header">
+            <h3>History</h3>    
+            <button class="close-history">&times;</button>
+        </div>
+        <div class="history-content"></div>
+    </div>
+    <script type="module" src="basic.js"></script>
+</body>
+</html>
+
