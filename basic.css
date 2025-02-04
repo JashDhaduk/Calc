@@ -59,7 +59,7 @@ body {
 }
 
 .history-panel.active {
-    right: 0;
+    right: 0;   
 }
 
 .history-header {
@@ -88,6 +88,23 @@ body {
     padding: 10px 0;
     border-bottom: 1px solid var(--border-color);
     font-size: 0.9rem;
+}
+
+.history-expression {
+    font-weight: bold;
+}
+
+.history-result {
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.history-entry:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.history-entry:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .display {

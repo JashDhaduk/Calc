@@ -20,63 +20,68 @@ document.addEventListener("DOMContentLoaded", function () {
         historyPanel.classList.remove('active');
     });
 
+    // Mouse click input
     buttons.forEach((button) => {
         button.addEventListener("click", function () {
             const value = button.textContent.trim();
+            console.log(value);
             handleInput(value);
         });
     });
 
-
+    // keyboard input
     document.addEventListener('keydown', function (event) {
         const key = event.key;
-
 
         if (key >= '0' && key <= '9') {
             handleInput(key);
         } 
-
         else if (key === '+' || key === '-' || key === '*' || key === '/' || key === '%') {
             handleInput(key);
         }
-
         else if (key === 'Enter') {
             handleInput('=');
-        } else if (key === 'Backspace') {
+        }
+        else if (key === 'Backspace') {
             handleInput('⌫');
-        } else if (key === 'Delete') {
+        }
+        else if (key === 'Delete') {
             handleInput('C');
-        } else if (key === '.') {
+        }
+        else if (key === '.') {
             handleInput('.');
         }
         else if (key === 'f') {
             handleInput('n!');
-        } else if (key === 'p') {
+        }
+        else if (key === 'p') {
             handleInput('π');
-        } else if (key === 'e') {
+        }
+        else if (key === 'e') {
             handleInput('e');
         }
     });
 
-    function degreesToRadians(degrees) {
-        return degrees * (Math.PI / 180);
-    }
+    
 
+    // Input Handler
     function handleInput(value) {
         if (value === 'C') {
             currentInput = '';
             display.value = '0';
             operatorUsed = false;
-        } else if (value === '⌫') {
+        }
+        else if (value === '⌫') {
             currentInput = currentInput.slice(0, -1);
             display.value = currentInput || '0';
             operatorUsed = false;
-        } else if (value === '=') {
+        } 
+        else if (value === '=') {
 
             if (/^\d+(\.\d+)?$/.test(currentInput)) {
-                // If no operator is found, show an alert
+        
                 alert('Invalid expression! You must enter an operator.');
-                return;  // Stop further processing
+                return;
             }
             try {
                 currentInput = evaluateExpression(currentInput);
@@ -87,168 +92,147 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentInput = '';
                 operatorUsed = false;
             }
-        } else if (value === 'π') {
+        } 
+        else if (value === 'π') {
             if (isValidPlacement(currentInput, 'π')) {
                 currentInput += 'π';
                 display.value = currentInput;
             } else {
                 alert('Invalid (Add operator first)');
             }   
-        } else if (value === 'e') {
+        } 
+        else if (value === 'e') {
             if (isValidPlacement(currentInput, 'e')) {
                 currentInput += 'e';
                 display.value = currentInput;
             } else {
                 alert('Invalid (Add operator first)');
             }   
-        } else if (value === 'n!'){
+        }
+        else if (value === 'n!'){
             if(currentInput === ''){
                 alert('Please enter a number first.');  
             } else{
                 const result = calculateFactorial(currentInput);
                 addToHistory(currentInput, result);
-                currentInput = result;  // Update the input with the result
+                currentInput = result; 
                 display.value = currentInput; 
             }
         } 
-        else if (value === 'x2'){
-            if(currentInput === ''){
-                alert('Please enter a number first.');  
-            } else{
-                const result = calculateSquare(currentInput);
-                addToHistory(currentInput, result);
-                currentInput = result;  // Update the input with the result
-                display.value = currentInput; 
+        else if (value === 'x2') {
+            if (currentInput === '') {
+                alert('Please enter a number first.');
+            } else {
+                calculateMathOperation(currentInput, 'square');
             }
         } 
-        else if (value === '√x'){
-            if(currentInput === ''){
-                alert('Please enter a number first.');  
-            } else{
-                const result = calculateSquareroot(currentInput);
-                addToHistory(currentInput, result);
-                currentInput = result;  // Update the input with the result
-                display.value = currentInput; 
+        else if (value === '√x') {
+            if (currentInput === '') {
+                alert('Please enter a number first.');
+            } else {
+                calculateMathOperation(currentInput, 'squareroot');
             }
         } 
-        else if (value === '10x'){
-            if(currentInput === ''){
-                alert('Please enter a number first.');  
-            } else{
-                const result = powOfTen(currentInput);
-                addToHistory(currentInput, result);
-                currentInput = result;  // Update the input with the result
-                display.value = currentInput; 
+        else if (value === '10x') {
+            if (currentInput === '') {
+                alert('Please enter a number first.');
+            } else {
+                calculateMathOperation(currentInput, 'powOfTen');
+            }
+        } 
+        else if (value === 'log') {
+            if (currentInput === '') {
+                alert('Please enter a number first.');
+            } else {
+                calculateMathOperation(currentInput, 'log');
+            }
+        } 
+        else if (value === 'ln') {
+            if (currentInput === '') {
+                alert('Please enter a number first.');
+            } else {
+                calculateMathOperation(currentInput, 'ln');
+            }
+        } 
+        else if (value === 'exp') {
+            if (currentInput === '') {
+                alert('Please enter a number first.');
+            } else {
+                calculateMathOperation(currentInput, 'exp');
             }
         }
-        else if (value === 'log'){
-            if(currentInput === ''){
-                alert('Please enter a number first.');  
-            } else{
-                const result = log(currentInput);
-                addToHistory(currentInput, result);
-                currentInput = result;  // Update the input with the result
-                display.value = currentInput; 
-            }
-        } 
-        else if (value === 'ln'){
-            if(currentInput === ''){
-                alert('Please enter a number first.');  
-            } else{
-                const result = ln(currentInput);
-                addToHistory(currentInput, result);
-                currentInput = result;  // Update the input with the result 
-                display.value = currentInput; 
-            }
-        } 
-        else if (value === 'exp'){
-            if(currentInput === ''){
-                alert('Please enter a number first.');  
-            } else{
-                const result = exponential(currentInput);
-                addToHistory(currentInput, result);
-                currentInput = result;  // Update the input with the result 
-                display.value = currentInput; 
-            }
-        } 
         else if (value === 'Sin') {
-            let angle = parseFloat(currentInput);
-            if (isNaN(angle)) {
-                alert('Please enter a number first.');  
-            } else {
-                const radians = degreesToRadians(angle);  // Convert angle to radians
-                const exp = angle
-                currentInput = Math.sin(radians).toString(); // Corrected: use Math.sin instead of sin
-                addToHistory(exp, currentInput);
-                display.value = currentInput;  // Update the display with the result
-            }
-        }
+            calculateTrigonometric(currentInput, Math.sin);
+        } 
         else if (value === 'Cos') {
-            let angle = parseFloat(currentInput);
-            if (isNaN(angle)) {
-                alert('Please enter a number first.');  
-            } else {
-                const radians = degreesToRadians(angle);  // Convert angle to radians
-                const exp = angle
-                currentInput = Math.cos(radians).toString(); // Corrected: use Math.sin instead of sin
-                addToHistory(exp, currentInput);
-                display.value = currentInput;  // Update the display with the result
-            }
-        }
+            calculateTrigonometric(currentInput, Math.cos);
+        } 
         else if (value === 'Tan') {
-            let angle = parseFloat(currentInput);
-            if (isNaN(angle)) {
-                alert('Please enter a number first.');  
-            } else {
-                const radians = degreesToRadians(angle);  // Convert angle to radians
-                const exp = angle
-                currentInput = Math.tan(radians).toString(); // Corrected: use Math.sin instead of sin
-                addToHistory(exp, currentInput);
-                display.value = currentInput;  // Update the display with the result
-            }
+            calculateTrigonometric(currentInput, Math.tan);
         }
+
         else if (value === '+/-') {
             let currentNumber = parseFloat(currentInput);
         
             if (!isNaN(currentNumber)) {
-                currentInput = (currentNumber * -1).toString();  // Toggle the sign
-                display.value = currentInput;  // Update the display with result
+                currentInput = (currentNumber * -1).toString();
+                display.value = currentInput;
             } else {
                 alert('Please enter a valid number first.');
             }
         }
         else if (value === '.') {
-            if (!currentInput.includes('.')) {
-                currentInput += '.';    
+            // Allow decimal if there is no decimal already in the current operand
+            const lastOperand = currentInput.split(/[\+\-\*\/\%]/).pop();  // Get the last operand (after the last operator)
+    
+            if (!lastOperand.includes('.')) {
+                currentInput += '.';
                 display.value = currentInput;
             }
-        } else if (value === '') {
-            if (isValidPlacement(currentInput, 'e')) {
-                currentInput += 'e';
-                display.value = currentInput;
-            } else {
-                alert('Invalid (Add operator first)');
-            }   
-        } else {
-            if (operatorUsed && !['+', '-', '*', '/', '%'].includes(value)) {
-                currentInput = '';
-            }
+        } 
+        else if (/[0-9]/.test(value)) {
+            // Allow normal number input
             currentInput += value;
             display.value = currentInput;
             operatorUsed = false;
+        } 
+        else if (/[+-x÷modxy]/.test(value)) {
+            // Handle operator input
+            if (currentInput === '') {
+                // Prevent input like '+', '-', '*', etc., without any number before it
+                alert("Enter number first")
+                return;
+            }
+            
+            // Add operator if a number is present
+            currentInput += value;
+            display.value = currentInput;
+            operatorUsed = true;
+        }
+         else if (value === '(') {
+            // Allow '(' if last input is an operator, number, or empty
+            if (currentInput === '' || /[+\-*/%^]$/.test(currentInput) || /\d$/.test(currentInput)) {
+                currentInput += '(';
+                display.value = currentInput;
+            }
+        }
+        else if (value === ')') {
+            // Allow ')' if there's an unmatched '('
+            if (currentInput.match(/\(/g) && (currentInput.match(/\(/g).length > (currentInput.match(/\)/g) ? currentInput.match(/\)/g).length : 0))) {
+                currentInput += ')';
+                display.value = currentInput;
+            }
         }
     }
 
     function isValidPlacement(input, char) {
-        // Check if 'π' is placed after an operator or at the start
-        const validOperators = ['+', '-', '*', '/'];
+
+        const validOperators = ['+', '-', '*', '/', '%', '^'];
         
-        // If it's the first character or after an operator, it's valid
         if (input === '' || validOperators.includes(input[input.length - 1])) {
             return true;
         }
     
-        // Check if 'π' comes after a number or another symbol (invalid)
         if (/\d|\)/.test(input[input.length - 1])) {
             return false;
         }
@@ -262,17 +246,35 @@ document.addEventListener("DOMContentLoaded", function () {
         expression = expression.replace(/e/g, Math.E);
         expression = expression.replace(/x/g, '*');
         expression = expression.replace(/÷/g, '/');
-        expression = expression.replace(/mod/g, '%');   
+        expression = expression.replace(/mod/g, '%'); 
+        expression = expression.replace(/xy/g, '^')  
 
         try {
             const result = Function('return ' + expression)();
             addToHistory(currentInput, result);
             return result.toString();
-        } catch (error) {
+        } 
+        catch (error) {
             throw new Error("Invalid Expression");
         }
     }
 
+    function degreesToRadians(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+
+    function calculateTrigonometric(value, func) {
+        let angle = parseFloat(value);
+        if (isNaN(angle)) {
+            alert('Please enter an angle in degrees first.');
+        } else {
+            const radians = degreesToRadians(angle);
+            currentInput = func(radians).toString();
+            addToHistory(angle, currentInput);
+            display.value = currentInput;
+        }
+    }
+    
 
     function calculateFactorial(input) {
         const num = parseInt(input);
@@ -286,30 +288,42 @@ document.addEventListener("DOMContentLoaded", function () {
         return factorial.toString();
     }
 
-    function calculateSquare (input) {
-        return input * input;   
+    function calculateMathOperation(value, operation) {
+        const input = parseFloat(value);
+        if (isNaN(input)) {
+            alert('Please enter a valid number first.');
+            return;
+        }
+    
+        let result;
+        switch (operation) {
+            case 'square':
+                result = input * input;
+                break;
+            case 'squareroot':
+                result = Math.sqrt(input);
+                break;
+            case 'powOfTen':
+                result = Math.pow(10, input);
+                break;
+            case 'log':
+                result = Math.log10(input);
+                break;
+            case 'ln':
+                result = Math.log(input);
+                break;
+            case 'exp':
+                result = Math.exp(input);
+                break;
+            default:
+                alert('Unknown operation');
+                return;
+        }
+    
+        currentInput = result.toString();
+        addToHistory(value, currentInput);
+        display.value = currentInput;
     }
-
-    function calculateSquareroot (input){
-        return Math.sqrt(input)
-    }
-
-    function powOfTen(input){
-        return Math.pow(10,input)
-    }
-
-    function log(input){
-        return Math.log10(input)
-    }
-
-    function ln(input){
-        return Math.log(input)
-    }
-
-    function exponential(input){
-        return Math.exp(input)
-    }
-
     window.addEventListener("error", function (e) {
         display.value = "Error";
         currentInput = '';
@@ -332,8 +346,8 @@ document.addEventListener("DOMContentLoaded", function () {
         historyContent.innerHTML = calculationHistory
             .map(entry => `
                 <div class="history-entry">
-                    <div>${entry.expression}</div>
-                    <div>= ${entry.result}</div>
+                    <div class="history-expression>${entry.expression}</div>
+                    <div class="history-result>= ${entry.result}</div>
                 </div>
             `)
             .join('');
