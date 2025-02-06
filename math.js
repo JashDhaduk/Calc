@@ -78,7 +78,7 @@ class Calculator {
         }
 
         const result = Math.pow(baseNum, exponentNum);
-        return result.toString();  // Returning the result as a string.
+        return result.toString();
     }
 
     // Perform various math operations

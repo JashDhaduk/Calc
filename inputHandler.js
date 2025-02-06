@@ -1,19 +1,17 @@
 import Calculator from "./math.js";
 import { addToHistory } from "./history.js";
-// import { currentInput, lastOperation, operatorUsed } from "./calculator.js";
 
 const display = document.querySelector('.display')
 const calc = new Calculator();
 let currentInput = '';
-let lastOperation = '';
 let operatorUsed = false;
 
 export function getCurrentInput() {
-    return currentInput;  // Getter function to access currentInput.
+    return currentInput;
 }
 
 export function setCurrentInput(value) {
-    currentInput = value;  // Setter function to modify currentInput.
+    currentInput = value;
 }
 
 export function handleInput(value){
@@ -32,7 +30,6 @@ export function handleInput(value){
 
     // Evaluation or Enter
     else if (value === '=') {
-
         if (/^\d+(\.\d+)?$/.test(currentInput)) {
 
             alert('Invalid expression! You must enter an operator.');
@@ -42,12 +39,12 @@ export function handleInput(value){
             const [base, exponent] = currentInput.split('^');
             const result = calc.calculatePower(base, exponent);
             addToHistory(currentInput, result);
-            setCurrentInput(result);  // Update currentInput with the result
-            display.value = getCurrentInput();  // Display result
+            currentInput = result;
+            display.value = currentInput;
             return;
         }
         try {
-            currentInput = evaluateExpression(currentInput);
+            currentInput = calc.evaluateExpression(currentInput);
             display.value = currentInput;
             operatorUsed = true;
         } catch (error) {
@@ -110,7 +107,7 @@ export function handleInput(value){
         }
     } 
     else if (value === 'xy') {
-        currentInput += '^';  // Append the '^' operator for the power operation
+        currentInput += '^';
         display.value = currentInput;
     }
 
@@ -170,7 +167,7 @@ export function handleInput(value){
     
     // Brackets
     else if (value === '(') {
-        if (currentInput === '' || /[+\-*/%^]$/.test(currentInput) || /\d$/.test(currentInput)) {
+        if (currentInput === '' || /[+\-*/%]$/.test(currentInput) || /\d$/.test(currentInput)) {
             currentInput += '(';
             display.value = currentInput;
         }
@@ -182,22 +179,10 @@ export function handleInput(value){
         }
     }
 
-    else if (/[0-9]/.test(value)){
+    // for numbers [0-9] && general operators [+-x÷mod]
+    else{
         currentInput += value;
         display.value = currentInput;
-        console.log(currentInput)
-        operatorUsed = false;
-    }
-    else if (/[+-x÷mod]/.test(value)) {
-
-        if (currentInput === '') {
-            alert("Enter number first")
-            return;
-        }
-        currentInput += value;
-        display.value = currentInput;
-        console.log(currentInput)
         operatorUsed = true;
     }
-
 }
